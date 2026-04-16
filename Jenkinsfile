@@ -5,7 +5,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t florenza-app .'
+                dir('Florenza-Custom-Style-1') {
+                    sh 'docker build -t florenza-app .'
+                }
             }
         }
 
