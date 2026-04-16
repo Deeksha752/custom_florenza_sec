@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('Florenza-Custom-Style-1') {
-                    sh 'docker build -t florenza-app .'
+                    sh 'docker build --no-cache -t florenza-app .'
                 }
             }
         }
@@ -15,7 +15,7 @@ pipeline {
                 sh '''
                 docker stop florenza || true
                 docker rm florenza || true
-                docker run -d -p 80:3000 --name florenza florenza-app || docker start florenza
+                docker run -d -p 80:80 --name florenza florenza-app
                 '''
             }
         }
