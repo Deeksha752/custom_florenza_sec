@@ -2,11 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/abPragathi007/custom_florenza_sec.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
@@ -23,5 +18,6 @@ pipeline {
                 '''
             }
         }
+
     }
 }
