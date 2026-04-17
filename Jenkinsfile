@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build Docker Image') {
             steps {
                 dir('Florenza-Custom-Style-1') {
-                    sh 'docker build --no-cache -t florenza-app .'
+                    sh 'docker build -t florenza-app .'
                 }
             }
         }
