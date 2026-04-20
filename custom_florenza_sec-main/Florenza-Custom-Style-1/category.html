@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop by Category - Custom Florenza</title>
+  <meta name="description" content="Choose a category for your custom apparel and move to the next step." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #c9184a;
+      --primary-light: #fde2e9;
+      --bg: #fdf6f7;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: #f0dce2;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .page-label {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .hero {
+      padding: 4rem 1rem 2rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 1rem;
+    }
+    p.lead {
+      max-width: 720px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .category-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(201,24,74,0.12);
+    }
+    .category-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: inline-flex;
+      width: 52px;
+      height: 52px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background: var(--primary-light);
+    }
+    .category-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .category-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <a href="index.html" class="brand">Custom Florenza</a>
+      <span class="page-label">Step 1 of 3</span>
+    </div>
+
+    <section class="hero">
+      <h1>Shop by Category</h1>
+      <p class="lead">Choose the apparel category you want first. All starting at ₹649 — customization from ₹199 extra.</p>
+    </section>
+
+    <div class="category-grid">
+      <a href="service.html" class="category-card">
+        <div class="category-icon">👕</div>
+        <h2>T-Shirts</h2>
+        <p>Classic, fitted and easy to customise for team wear, events or brand merchandise.</p>
+        <div class="price">₹649+</div>
+      </a>
+      <a href="service.html" class="category-card">
+        <div class="category-icon">🧥</div>
+        <h2>Hoodies</h2>
+        <p>Warm, stylish hoodies made for premium prints and bold colour designs.</p>
+        <div class="price">₹1,099+</div>
+      </a>
+      <a href="service.html" class="category-card">
+        <div class="category-icon">👔</div>
+        <h2>Shirts</h2>
+        <p>Smart custom shirts for workwear, uniforms and personalised gifting.</p>
+        <div class="price">₹849+</div>
+      </a>
+      <a href="service.html" class="category-card">
+        <div class="category-icon">🧣</div>
+        <h2>Sweatshirts</h2>
+        <p>Cozy sweatshirts that look great with logos, slogans and team branding.</p>
+        <div class="price">₹899+</div>
+      </a>
+    </div>
+
+    <a href="index.html" class="footer-link">← Back to Home</a>
+  </div>
+</body>
+</html>

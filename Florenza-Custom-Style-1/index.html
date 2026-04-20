@@ -12,7 +12,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #c9184a;
+      --primary: #e28335;
       --primary-light: #fde2e9;
       --bg: #fdf6f7;
       --text: #1a1a1a;
@@ -27,6 +27,16 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+
+    /* ── Page System ── */
+    .page {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .page.active {
+      display: flex;
     }
 
     /* ── Navbar ── */
@@ -49,6 +59,7 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .brand-monogram {
@@ -82,8 +93,25 @@
       font-weight: 500;
       color: var(--muted);
       transition: color 0.2s;
+      cursor: pointer;
     }
     .nav-links a:hover { color: var(--primary); }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+    .breadcrumb span { cursor: pointer; }
+    .breadcrumb span:hover { color: var(--primary); }
+    .breadcrumb .sep { color: var(--border); }
+    .breadcrumb .current { color: var(--text); font-weight: 600; cursor: default; }
 
     /* ── Hero ── */
     .hero {
@@ -173,7 +201,7 @@
       box-shadow: 0 4px 20px rgba(201,24,74,0.3);
     }
     .btn-primary:hover {
-      background: #a8142e;
+      background: #f0d6db;
       box-shadow: 0 6px 24px rgba(201,24,74,0.4);
       transform: translateY(-1px);
     }
@@ -189,7 +217,7 @@
       transform: translateY(-1px);
     }
 
-    /* ── Features ── */
+    /* ── Features (used on homepage & customization page) ── */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -275,6 +303,7 @@
       gap: 8px;
       transition: all 0.2s;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .pill:hover {
@@ -282,13 +311,215 @@
       border-color: var(--primary);
       color: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(201,24,74,0.25);
+      box-shadow: 0 4px 16px rgba(224, 155, 109, 0.25);
     }
 
     .price-range {
       font-weight: 400;
       font-size: 0.8rem;
       opacity: 0.7;
+    }
+
+    /* ── Category Page ── */
+    .page-header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #fde2e9 0%, var(--bg) 70%);
+    }
+
+    .page-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .category-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity 0.25s;
+      border-radius: 24px;
+    }
+
+    .category-card:hover::before { opacity: 1; }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(201,24,74,0.25);
+      border-color: var(--primary);
+    }
+
+    .category-card:hover .cat-emoji,
+    .category-card:hover .cat-name,
+    .category-card:hover .cat-desc,
+    .category-card:hover .cat-price,
+    .category-card:hover .cat-cta {
+      color: #fff;
+    }
+
+    .category-card > * { position: relative; z-index: 1; }
+
+    .cat-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+      transition: color 0.25s;
+    }
+
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      transition: color 0.25s;
+    }
+
+    .cat-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      transition: color 0.25s;
+    }
+
+    .cat-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      transition: color 0.25s;
+    }
+
+    .cat-cta {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+
+    .category-card:hover .cat-cta {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+
+    /* ── Customization Page ── */
+    .customize-header {
+      text-align: center;
+      padding: 3rem 2rem 1rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #fde2e9 0%, var(--bg) 70%);
+    }
+
+    .customize-header .selected-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .customize-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .customize-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .customization-features {
+      padding: 2rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .customization-features h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Order CTA ── */
+    .order-cta {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .order-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .order-cta p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .order-cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     /* ── Contact strip ── */
@@ -341,102 +572,286 @@
       .nav-links { display: none; }
       .hero h1 { font-size: 2.2rem; }
       .hero p { font-size: 1rem; }
+      .category-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .category-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav>
-    <a href="#" class="brand">
-      <div class="brand-monogram">CF</div>
-      <span class="brand-name">Custom Florenza</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#categories">Categories</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- ════════════════════════════════
+       PAGE 1 — LANDING
+  ════════════════════════════════ -->
+  <div class="page active" id="page-home">
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-badge">New Spring Collection 2025</div>
-
-    <h1>Designed by <em>You</em>,<br />Customised by Florenza</h1>
-    <p>
-      Turn your ideas into premium custom clothing. Choose your style, add your design, 
-      and let us handle the rest — with boutique quality care.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#categories" class="btn btn-primary">
-        ✦ Start Customizing
+    <nav>
+      <a class="brand" onclick="goHome()">
+        <div class="brand-monogram">CF</div>
+        <span class="brand-name">Custom Florenza</span>
       </a>
-      <a href="#features" class="btn btn-outline">
-        How It Works
-      </a>
-    </div>
-  </section>
+      <ul class="nav-links">
+        <li><a onclick="goTo('page-categories')">Categories</a></li>
+        <li><a onclick="scrollToContact('page-home')">Contact</a></li>
+      </ul>
+    </nav>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <div class="feature-card">
-      <div class="feature-icon">✏️</div>
-      <h3>Add Custom Text</h3>
-      <p>Add names, quotes, team slogans or any text in your chosen font and colour.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🖼️</div>
-      <h3>Upload Your Logo</h3>
-      <p>Upload any image, artwork or logo and we'll print it with precision on your garment.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🎨</div>
-      <h3>Team Design Service</h3>
-      <p>Our in-house designers can create something unique just for you — from scratch.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🚚</div>
-      <h3>Fast Delivery</h3>
-      <p>Orders processed within 3–5 business days and shipped across India — free.</p>
-    </div>
-  </section>
+    <section class="hero">
+      <div class="hero-badge">New Spring Collection 2025</div>
+      <h1>Designed by <em>You</em>,<br />Customised by Florenza</h1>
+      <p>
+        Turn your ideas into premium custom clothing. Choose your style, add your design,
+        and let us handle the rest — with boutique quality care.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="goTo('page-categories')">
+          ✦ Start Customizing
+        </button>
+        <button class="btn btn-outline" onclick="goTo('page-categories')">
+          How It Works
+        </button>
+      </div>
+    </section>
 
-  <!-- Categories -->
-  <section class="categories" id="categories">
-    <h2>Shop by Category</h2>
-    <p style="color:var(--muted);margin-bottom:2rem;font-size:0.95rem;">All starting at ₹649 — customization from ₹199 extra</p>
-    <div class="category-pills">
-      <a href="#" class="pill">👕 T-Shirts <span class="price-range">₹649+</span></a>
-      <a href="#" class="pill">🧥 Hoodies <span class="price-range">₹1,099+</span></a>
-      <a href="#" class="pill">👔 Shirts <span class="price-range">₹849+</span></a>
-      <a href="#" class="pill">🧣 Sweatshirts <span class="price-range">₹899+</span></a>
+    <div class="contact-strip" id="contact-home">
+      <h3>Get in Touch</h3>
+      <p style="opacity:0.85;font-size:0.95rem;">We typically respond within 24 hours. WhatsApp is fastest!</p>
+      <div class="contact-items">
+        <a href="mailto:customflorenza@gmail.com" class="contact-item">
+          📧 customflorenza@gmail.com &amp; pragathiab46@gmail.com
+        </a>
+        <a href="https://wa.me/918050604967" target="_blank" class="contact-item">
+          💬 WhatsApp: +91 8050604967
+        </a>
+        <a href="tel:+918050604967" class="contact-item">
+          📞 +91 8050604967
+        </a>
+      </div>
     </div>
-  </section>
 
-  <!-- Contact Strip -->
-  <section class="contact-strip" id="contact">
-    <h3>Get in Touch</h3>
-    <p style="opacity:0.85;font-size:0.95rem;">We typically respond within 24 hours. WhatsApp is fastest!</p>
-    <div class="contact-items">
-      <a href="mailto:customflorenza@gmail.com" class="contact-item">
-        📧 customflorenza@gmail.com
-        & pragathiab46@gmail.com
+    <footer>
+      <p>© 2025 <span>Custom Florenza</span> — Designed by You, Crafted by Florenza. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+
+  <!-- ════════════════════════════════
+       PAGE 2 — CATEGORIES
+  ════════════════════════════════ -->
+  <div class="page" id="page-categories">
+
+    <nav>
+      <a class="brand" onclick="goHome()">
+        <div class="brand-monogram">CF</div>
+        <span class="brand-name">Custom Florenza</span>
       </a>
-      <a href="https://wa.me/919686195659" target="_blank" class="contact-item">
-        💬 WhatsApp: +91 8050604967
-      </a>
-      <a href="tel:+919686195659" class="contact-item">
-        📞 +91 8050604967
-      </a>
+      <ul class="nav-links">
+        <li><a onclick="goHome()">Home</a></li>
+        <li><a onclick="scrollToContact('page-categories')">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="breadcrumb">
+      <span onclick="goHome()">Home</span>
+      <span class="sep">›</span>
+      <span class="current">Shop by Category</span>
     </div>
-  </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 <span>Custom Florenza</span> — Designed by You, Crafted by Florenza. All rights reserved.</p>
-  </footer>
+    <div class="page-header">
+      <div class="hero-badge">All starting at ₹649</div>
+      <h2>Shop by <em style="font-style:italic;color:var(--primary);">Category</em></h2>
+      <p>All starting at ₹649 — customization from ₹199 extra. Pick your garment to get started.</p>
+    </div>
+
+    <div class="category-grid">
+
+      <div class="category-card" onclick="goToCustomize('T-Shirt', '₹649+', '👕')">
+        <span class="cat-emoji">👕</span>
+        <div class="cat-name">T-Shirts</div>
+        <div class="cat-desc">Classic comfort, everyday wear. Available in multiple fits and fabrics.</div>
+        <div class="cat-price">Starting ₹649</div>
+        <span class="cat-cta">Customize →</span>
+      </div>
+
+      <div class="category-card" onclick="goToCustomize('Hoodie', '₹1,099+', '🧥')">
+        <span class="cat-emoji">🧥</span>
+        <div class="cat-name">Hoodies</div>
+        <div class="cat-desc">Cozy pull-overs and zip-ups perfect for all seasons and occasions.</div>
+        <div class="cat-price">Starting ₹1,099</div>
+        <span class="cat-cta">Customize →</span>
+      </div>
+
+      <div class="category-card" onclick="goToCustomize('Shirt', '₹849+', '👔')">
+        <span class="cat-emoji">👔</span>
+        <div class="cat-name">Shirts</div>
+        <div class="cat-desc">Smart casual and formal shirts — customized with your personal touch.</div>
+        <div class="cat-price">Starting ₹849</div>
+        <span class="cat-cta">Customize →</span>
+      </div>
+
+      <div class="category-card" onclick="goToCustomize('Sweatshirt', '₹899+', '🧣')">
+        <span class="cat-emoji">🧣</span>
+        <div class="cat-name">Sweatshirts</div>
+        <div class="cat-desc">Relaxed, warm and stylish. Great for teams, events or everyday use.</div>
+        <div class="cat-price">Starting ₹899</div>
+        <span class="cat-cta">Customize →</span>
+      </div>
+
+    </div>
+
+    <div class="contact-strip" id="contact-categories">
+      <h3>Get in Touch</h3>
+      <p style="opacity:0.85;font-size:0.95rem;">We typically respond within 24 hours. WhatsApp is fastest!</p>
+      <div class="contact-items">
+        <a href="mailto:customflorenza@gmail.com" class="contact-item">
+          📧 customflorenza@gmail.com &amp; pragathiab46@gmail.com
+        </a>
+        <a href="https://wa.me/918050604967" target="_blank" class="contact-item">
+          💬 WhatsApp: +91 8050604967
+        </a>
+        <a href="tel:+918050604967" class="contact-item">
+          📞 +91 8050604967
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 <span>Custom Florenza</span> — Designed by You, Crafted by Florenza. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+
+  <!-- ════════════════════════════════
+       PAGE 3 — CUSTOMIZATION
+  ════════════════════════════════ -->
+  <div class="page" id="page-customize">
+
+    <nav>
+      <a class="brand" onclick="goHome()">
+        <div class="brand-monogram">CF</div>
+        <span class="brand-name">Custom Florenza</span>
+      </a>
+      <ul class="nav-links">
+        <li><a onclick="goHome()">Home</a></li>
+        <li><a onclick="goTo('page-categories')">Categories</a></li>
+        <li><a onclick="scrollToContact('page-customize')">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="breadcrumb">
+      <span onclick="goHome()">Home</span>
+      <span class="sep">›</span>
+      <span onclick="goTo('page-categories')">Categories</span>
+      <span class="sep">›</span>
+      <span class="current" id="breadcrumb-item">Customize</span>
+    </div>
+
+    <div class="customize-header">
+      <div class="selected-badge" id="selected-badge">👕 T-Shirt — ₹649+</div>
+      <h2>Customise Your <em style="font-style:italic;color:var(--primary);" id="custom-title">T-Shirt</em></h2>
+      <p>Choose from the options below — add text, upload your logo, or let our team design it for you.</p>
+    </div>
+
+    <div class="customization-features">
+      <h3>How would you like to customise?</h3>
+      <div class="features" style="padding: 0 0 2rem; max-width: 100%;">
+
+        <div class="feature-card">
+          <div class="feature-icon">✏️</div>
+          <h3>Add Custom Text</h3>
+          <p>Add names, quotes, team slogans or any text in your chosen font and colour.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🖼️</div>
+          <h3>Upload Your Logo</h3>
+          <p>Upload any image, artwork or logo and we'll print it with precision on your garment.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Team Design Service</h3>
+          <p>Our in-house designers can create something unique just for you — from scratch.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h3>Fast Delivery</h3>
+          <p>Orders processed within 3–5 business days and shipped across India — free.</p>
+        </div>
+
+      </div>
+
+      <div class="order-cta">
+        <h3>Ready to place your order?</h3>
+        <p>
+          Reach out to us on WhatsApp or email with your design idea, and our team will guide you through the rest —
+          from fabric choice to final print. It's that simple!
+        </p>
+        <div class="order-cta-buttons">
+          <a href="https://wa.me/918050604967" target="_blank" class="btn btn-primary">
+            💬 Order on WhatsApp
+          </a>
+          <a href="mailto:customflorenza@gmail.com" class="btn btn-outline">
+            📧 Send us an Email
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-strip" id="contact-customize">
+      <h3>Get in Touch</h3>
+      <p style="opacity:0.85;font-size:0.95rem;">We typically respond within 24 hours. WhatsApp is fastest!</p>
+      <div class="contact-items">
+        <a href="mailto:customflorenza@gmail.com" class="contact-item">
+          📧 customflorenza@gmail.com &amp; pragathiab46@gmail.com
+        </a>
+        <a href="https://wa.me/918050604967" target="_blank" class="contact-item">
+          💬 WhatsApp: +91 8050604967
+        </a>
+        <a href="tel:+918050604967" class="contact-item">
+          📞 +91 8050604967
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 <span>Custom Florenza</span> — Designed by You, Crafted by Florenza. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+
+  <script>
+    function goTo(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function goHome() {
+      goTo('page-home');
+    }
+
+    function goToCustomize(item, price, emoji) {
+      document.getElementById('selected-badge').textContent = emoji + ' ' + item + ' — ' + price;
+      document.getElementById('custom-title').textContent = item;
+      document.getElementById('breadcrumb-item').textContent = 'Customize ' + item;
+      goTo('page-customize');
+    }
+
+    function scrollToContact(pageId) {
+      goTo(pageId);
+      setTimeout(() => {
+        const el = document.getElementById('contact-' + pageId.replace('page-', ''));
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    }
+  </script>
 
 </body>
 </html>
